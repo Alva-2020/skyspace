@@ -1,0 +1,29 @@
+#!/bin/bash
+stage=0
+if [ $stage -le 0 ]; then
+python train.py \
+                        --ngpu 1\
+                        --workers 4\
+                        --arch xvector --depth 50 \
+                        --epochs 100 \
+                        --batch-size 800 --lr 0.1 \
+                        --att-type BAM \
+                        --prefix xvector_voxceleb1_softmax \
+                        ./data/speaker_model/ > log.xvector_voxceleb1_softmax3
+# > log.xvector_O_voxceleb1_mfcc
+#> log.xvector_voxceleb2_arcface
+#--prefix xvector_voxceleb1_arcface \
+fi
+
+if [ $stage -le -1 ]; then
+
+python train.py \
+                        --ngpu 4\
+                        --workers 4\
+                        --arch resnet --depth 50 \
+                        --epochs 100 \
+                        --batch-size 120 --lr 0.01 \
+                        --att-type BAM \
+                        --prefix  resnet_voxceleb2_arcface \
+                        ./data/speaker_model/   #> log.resnet_voxceleb2_arcface
+fi

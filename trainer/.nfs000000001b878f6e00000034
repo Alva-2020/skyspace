@@ -1,0 +1,11 @@
+#!/bin/bash
+
+python train.py \
+                        --ngpu 2\
+                        --workers 4\
+                        --arch resnet --depth 50 \
+                        --epochs 100 \
+                        --batch-size 800 --lr 0.1 \
+                        --att-type BAM \
+                        --prefix xvector_voxceleb2_arcface \
+                        ./data/speaker_model/  > log.xvector_voxceleb2_arcface
